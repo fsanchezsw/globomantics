@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { HouseItem } from "./house-item";
 
 export interface House {
@@ -7,7 +8,7 @@ export interface House {
   price: number;
 };
 
-const houses: House[] = [
+const houseArray: House[] = [
   {
     id: 1,
     address: "12 Valley of Kings, Geneva",
@@ -23,6 +24,20 @@ const houses: House[] = [
 ];
 
 const HouseList = () => {
+  const [houses, setHouses] = useState(houseArray);
+
+  const addHouse = () => {
+    setHouses([
+      ...houses,
+      {
+        id: houses.length + 1,
+        address: "32 Valley Way, New York",
+        country: "USA",
+        price: 1000000,
+      },
+    ])
+  }
+
   return (
     // React.Fragment can be abbreviated as <>
     <>
@@ -45,6 +60,9 @@ const HouseList = () => {
           ))}
         </tbody>
       </table>
+      <button className="btn btn-primary" onClick={addHouse}>
+        Add
+      </button>
     </>
   );
 };
