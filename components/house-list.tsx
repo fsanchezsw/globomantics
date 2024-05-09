@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { AddHouseItem } from "./add-house-item";
 import { HouseItem } from "./house-item";
 
 export interface House {
@@ -8,35 +9,23 @@ export interface House {
   price: number;
 };
 
-const houseArray: House[] = [
-  {
-    id: 1,
-    address: "12 Valley of Kings, Geneva",
-    country: "Switzerland",
-    price: 900000,
-  },
-  {
-    id: 2,
-    address: "89 Road of Forks, Bern",
-    country: "Switzerland",
-    price: 500000,
-  },
-];
-
 const HouseList = () => {
-  const [houses, setHouses] = useState(houseArray);
+  const [houses, setHouses] = useState<House[]>([]);
 
-  const addHouse = () => {
-    setHouses([
-      ...houses,
-      {
-        id: houses.length + 1,
-        address: "32 Valley Way, New York",
-        country: "USA",
-        price: 1000000,
-      },
-    ])
-  }
+  useEffect(() => {
+    const fetchHouses = async () => {
+      const response = await fetch("/api/houses");
+      const houses = await response.json();
+
+      setHouses(houses);
+    };
+
+    fetchHouses();
+  }, []);
+
+  const addHouse = (newHouse: House) => {
+    setHouses([...houses, newHouse]);
+  };
 
   return (
     // React.Fragment can be abbreviated as <>
@@ -60,9 +49,7 @@ const HouseList = () => {
           ))}
         </tbody>
       </table>
-      <button className="btn btn-primary" onClick={addHouse}>
-        Add
-      </button>
+      <AddHouseItem onAdd={addHouse} />
     </>
   );
 };

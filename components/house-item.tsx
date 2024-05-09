@@ -1,5 +1,4 @@
 import { currencyFormatter } from "@/helpers/currency-formatter";
-
 import { House } from "./house-list";
 
 type Props = {
