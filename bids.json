@@ -83,6 +83,12 @@
       "bidder": "Francisco",
       "amount": 204000,
       "id": 14
+    },
+    {
+      "houseId": 1,
+      "bidder": "Belén",
+      "amount": 1,
+      "id": 15
     }
   ]
 }

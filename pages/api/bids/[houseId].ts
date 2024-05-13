@@ -70,4 +70,4 @@ export default async function userHandler(req: any, res: any) {
       res.setHeader("Allow", ["GET", "PUT"]);
       res.status(405).end(`Method ${method} Not Allowed`);
   }
-}
+};
