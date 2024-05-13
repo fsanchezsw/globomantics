@@ -1,5 +1,4 @@
 import { PropsWithChildren } from "react";
-
 import styles from "./banner.module.css";
 
 // Props destructuring

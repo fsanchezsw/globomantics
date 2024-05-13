@@ -1,13 +1,14 @@
 import { currencyFormatter } from "@/helpers/currency-formatter";
-import { House } from "./house-list";
+import { IHouse } from "./house-list";
 
 type Props = {
-  house: House;
+  house: IHouse;
+  selectHouse: (house: IHouse) => void;
 };
 
-const HouseItem = ({ house }: Props) => {
+const HouseItem = ({ house, selectHouse }: Props) => {
   return (
-    <tr>
+    <tr onClick={() => selectHouse(house)}>
       <td>{house.address}</td>
       <td>{house.country}</td>
       <td>{currencyFormatter.format(house.price)}</td>

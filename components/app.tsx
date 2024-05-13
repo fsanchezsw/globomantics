@@ -1,13 +1,17 @@
+import { useState } from "react";
 import { Banner } from "./banner";
-import { HouseList } from "./house-list";
+import { House } from "./house";
+import { HouseList, IHouse } from "./house-list";
 
 const App = () => {
+  const [selectedHouse, setSelectedHouse] = useState<IHouse>();
+
   return (
     <>
       <Banner>
         Providing houses all over the world
       </Banner>
-      <HouseList />
+      {selectedHouse ? <House house={selectedHouse} /> : <HouseList selectHouse={setSelectedHouse} />}
     </>
   );
 };

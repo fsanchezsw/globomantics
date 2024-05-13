@@ -1,29 +1,35 @@
-import { useEffect, useState } from "react";
+import { useHouses } from "@/hooks/use-houses";
 import { AddHouseItem } from "./add-house-item";
 import { HouseItem } from "./house-item";
+import { LoadingIndicator } from "./loading-indicator";
 
-export interface House {
+export interface IHouse {
   id: number;
   address: string;
   country: string;
+  description: string;
   price: number;
+  photo?: string;
 };
 
-const HouseList = () => {
-  const [houses, setHouses] = useState<House[]>([]);
+export enum LoadingState {
+  Loaded = "loaded",
+  Loading = "loading",
+  Error = "error"
+};
 
-  useEffect(() => {
-    const fetchHouses = async () => {
-      const response = await fetch("/api/houses");
-      const houses = await response.json();
+type Props = {
+  selectHouse: (house: IHouse) => void;
+};
 
-      setHouses(houses);
-    };
+const HouseList = ({ selectHouse }: Props) => {
+  const { houses, setHouses, loadingState } = useHouses();
 
-    fetchHouses();
-  }, []);
+  if (loadingState !== LoadingState.Loaded) {
+    return <LoadingIndicator />;
+  }
 
-  const addHouse = (newHouse: House) => {
+  const addHouse = (newHouse: IHouse) => {
     setHouses([...houses, newHouse]);
   };
 
@@ -45,7 +51,7 @@ const HouseList = () => {
         </thead>
         <tbody>
           {houses.map((house) => (
-            <HouseItem key={house.id} house={house} />
+            <HouseItem key={house.id} house={house} selectHouse={selectHouse} />
           ))}
         </tbody>
       </table>

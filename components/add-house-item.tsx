@@ -1,7 +1,7 @@
-import { House } from "./house-list";
+import { IHouse } from "./house-list";
 
 type Props = {
-  onAdd: (newHouse: House) => void
+  onAdd: (newHouse: IHouse) => void
 };
 
 const AddHouseItem = ({ onAdd }: Props) => {
