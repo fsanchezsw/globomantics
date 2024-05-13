@@ -1,12 +1,13 @@
+import { useContext } from "react";
 import { currencyFormatter } from "@/helpers/currency-formatter";
 import { defaultPhoto } from "@/helpers/default-house-photo";
+import { navigationContext } from "./app";
 import { IHouse } from "./house-list";
 
-type Props = {
-  house: IHouse;
-};
+const House = () => {
+  const { params } = useContext(navigationContext);
+  const house = params?.house as IHouse; // Ensuring a parameter `house` is coming when House component is rendered
 
-const House = ({ house }: Props) => {
   const houseImgSrc = house.photo ? `./house-images/${house.photo}.jpeg` : defaultPhoto;
 
   return (

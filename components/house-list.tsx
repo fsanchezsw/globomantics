@@ -18,11 +18,7 @@ export enum LoadingState {
   Error = "error"
 };
 
-type Props = {
-  selectHouse: (house: IHouse) => void;
-};
-
-const HouseList = ({ selectHouse }: Props) => {
+const HouseList = () => {
   const { houses, setHouses, loadingState } = useHouses();
 
   if (loadingState !== LoadingState.Loaded) {
@@ -51,7 +47,7 @@ const HouseList = ({ selectHouse }: Props) => {
         </thead>
         <tbody>
           {houses.map((house) => (
-            <HouseItem key={house.id} house={house} selectHouse={selectHouse} />
+            <HouseItem key={house.id} house={house} />
           ))}
         </tbody>
       </table>
